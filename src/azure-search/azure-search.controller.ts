@@ -1,6 +1,4 @@
 /* eslint-disable prettier/prettier */
-// search.controller.ts
-
 import { Controller, Get, Param } from '@nestjs/common';
 import { AzureSearchService } from './azure-search.service';
 
