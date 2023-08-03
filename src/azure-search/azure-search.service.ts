@@ -22,7 +22,7 @@ export class AzureSearchService {
 
   async uploadAndIndexBlob(blobName: string): Promise<void> {
     const blobContent = await this.azureBlobService.downloadBlob(blobName);
-    const contentType = 'application/pdf'; // Ajuste o tipo de conteúdo conforme o arquivo
+    const contentType = 'application/json'; // Ajuste o tipo de conteúdo conforme o arquivo
 
     const document: IFileDocument = {
       id: blobName,
@@ -34,8 +34,12 @@ export class AzureSearchService {
     await this.searchClient.uploadDocuments([document]);
   }
 
-  async search(query: string): Promise<any> {
+  async search(query: string): Promise<IFileDocument[]> {
     const searchResults = await this.searchClient.search(query);
-    return searchResults?.results;
+    const documents: IFileDocument[] = [];
+    for await (const result of searchResults.results) {
+      documents.push(result.document);
+    }
+    return documents;
   }
 }

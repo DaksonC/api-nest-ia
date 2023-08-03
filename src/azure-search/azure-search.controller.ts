@@ -1,14 +1,20 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AzureSearchService } from './azure-search.service';
 
 @Controller('api')
 export class SearchController {
   constructor(private readonly azureSearchService: AzureSearchService) { }
 
-  @Get('search/:query')
-  async search(@Param('query') query: string): Promise<any> {
-    const searchResults = await this.azureSearchService.search(query);
-    return searchResults;
+  @Get('search')
+  async search(@Query('q') query: string): Promise<any> {
+    try {
+      const searchResults = await this.azureSearchService.search(query);
+
+      return searchResults;
+    } catch (error) {
+      console.error('Erro na pesquisa:', error);
+      throw error;
+    }
   }
 }
