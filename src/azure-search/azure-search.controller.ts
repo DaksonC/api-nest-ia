@@ -8,13 +8,8 @@ export class SearchController {
 
   @Get('search')
   async search(@Query('q') query: string): Promise<any> {
-    try {
-      const searchResults = await this.azureSearchService.search(query);
+    const searchResults = await this.azureSearchService.search(query);
 
-      return searchResults;
-    } catch (error) {
-      console.error('Erro na pesquisa:', error);
-      throw error;
-    }
+    return searchResults;
   }
 }

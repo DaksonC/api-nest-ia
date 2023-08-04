@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { SearchClient, AzureKeyCredential } from '@azure/search-documents';
-import { IFileDocument } from 'src/models/file-document.model';
-import { AzureBlobService } from 'src/azure-blob/azure-blob.service';
 import * as dotenv from 'dotenv';
+import { Injectable } from '@nestjs/common';
+import { IFileDocument } from '../models/file-document.model';
+import { AzureBlobService } from '../azure-blob/azure-blob.service';
+import { SearchClient, AzureKeyCredential } from '@azure/search-documents';
 
 @Injectable()
 export class AzureSearchService {
